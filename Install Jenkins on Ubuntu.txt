@@ -1,0 +1,37 @@
+Install Jenkins on Ubuntu
+
+Steps:
+
+EC2 config:
+Launch an EC2 instance with ubunutu AMI
+In Network set it to All traffic (previously only SSH)
+Use Key 
+
+Open with Putty use tht key
+
+once open
+
+ubuntu
+
+apt-get update
+
+apt install default-jre -y   #-y gives yes direct to the pop-up
+
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+apt-get update
+
+apt-get install jenkins -y
+
+service jenkins status
+
+> goto EC2 instance copy the public IP address in the browser: http://3.80.101.89:8080 (add port 8080)
+
+
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+
+http://3.80.101.89:8080/
+
