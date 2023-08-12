@@ -1,5 +1,5 @@
 FROM  centos:latest
-LABEL maintainer="joshua.sequeira2000@gmail.com"
+LABEL info="joshua"
 RUN yum install -y httpd \
  zip\
  unzip
