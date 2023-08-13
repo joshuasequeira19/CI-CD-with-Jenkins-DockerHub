@@ -28,8 +28,8 @@ node{
 
         sshagent(['webapp_server']) {
 
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.83.75 ${docker_rmv_container}"
             sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.83.75 ${docker_rmi}"
-            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.83.75 ${docker_run}"
             sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.83.75 ${docker_run}"
 
             }   
