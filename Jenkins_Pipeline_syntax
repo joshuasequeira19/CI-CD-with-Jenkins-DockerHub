@@ -23,14 +23,16 @@ node{
     
     stage('Docker deploy container'){
         def docker_run = 'docker run -itd --name scriptedcontainer -p 9000:80 ghostiexd/docker-jenkins-webapp'
+        def docker_rmv_container = 'docker rm -f scriptedcontainer'
+        def docker_rmi = 'docker rmi -f ghostiexd/docker-jenkins-webapp'
 
         sshagent(['webapp_server']) {
-            
+
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.83.75 ${docker_rmi}"
             sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.83.75 ${docker_run}"
-    
-    
-            }
-        
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.83.75 ${docker_run}"
+
+            }   
     }
 }
 
