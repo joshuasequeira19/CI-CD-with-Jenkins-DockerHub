@@ -13,12 +13,12 @@ once open
 
 ubuntu
 
-apt-get update
+sudo su
 
-sudo apt-get update -y
-sudo apt-get upgrade -y
+apt-get update -y
+apt-get upgrade -y
 
-sudo apt install openjdk-17-jre -y
+apt install openjdk-17-jre -y
 
 java -version
  
@@ -29,13 +29,13 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 
-sudo apt-get update
+apt-get update
 
-sudo apt-get install jenkins -y
+apt-get install jenkins -y
 
-sudo systemctl start jenkins.service
+systemctl start jenkins.service
 
-sudo systemctl status jenkins
+systemctl status jenkins
 
 > goto EC2 instance copy the public IP address in the browser: http://3.80.101.89:8080 (add port 8080)
 
