@@ -1,0 +1,37 @@
+node{
+    stage('git checkout'){
+        git 'https://github.com/joshuasequeira19/Jenkins_testing.git'
+    }
+    
+    stage('docker build img'){
+        sh 'docker image build -t $JOB_NAME:v1.$BUILD_ID .'
+        sh 'docker image tag $JOB_NAME:v1.$BUILD_ID ghostiexd/$JOB_NAME:v1.$BUILD_ID'
+        sh 'docker image tag $JOB_NAME:v1.$BUILD_ID ghostiexd/$JOB_NAME:latest'
+    }
+    
+    stage('push imgs to docker hub'){
+        
+        withCredentials([string(credentialsId: 'DockerHubPwd1', variable: 'DockerHub')]) {
+            sh "docker login -u ghostiexd -p ${DockerHub}"
+            sh 'docker image push ghostiexd/$JOB_NAME:v1.$BUILD_ID'
+            sh 'docker image push ghostiexd/$JOB_NAME:latest'
+            
+            sh 'docker image rm $JOB_NAME:v1.$BUILD_ID  ghostiexd/$JOB_NAME:v1.$BUILD_ID ghostiexd/$JOB_NAME:latest'
+        }
+    
+    }
+    
+    stage('Docker deploy container'){
+        def docker_run = 'docker run -itd --name scriptedcontainer -p 9000:80 ghostiexd/docker-jenkins-webapp'
+
+        sshagent(['webapp_server']) {
+            
+            sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.83.75 ${docker_run}"
+    
+    
+            }
+        
+    }
+}
+
+
