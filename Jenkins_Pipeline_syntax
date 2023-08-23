@@ -1,6 +1,6 @@
 node{
     stage('git checkout'){
-        git 'https://github.com/joshuasequeira19/Jenkins_testing.git'
+        git 'https://github.com/joshuasequeira19/CI-CD-with-Jenkins-DockerHub.git'
     }
     
     stage('docker build img'){
